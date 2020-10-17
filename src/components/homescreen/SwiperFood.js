@@ -21,7 +21,6 @@ export default () => {
                     <View
                         key={index}
                         style={styles.slideImage}>
-                        {console.log(imageFood)}
                         <Image
                             resizeMode={'center'}
                             style={styles.slide}

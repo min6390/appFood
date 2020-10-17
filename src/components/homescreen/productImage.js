@@ -29,6 +29,8 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
     },
-    content: {},
+    content: {
+        margin:5
+    },
 });
 export default ProductImage;

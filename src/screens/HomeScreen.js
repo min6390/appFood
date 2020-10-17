@@ -2,16 +2,20 @@ import React, {Component} from 'react';
 
 import {View, Image, TouchableOpacity, Text, StyleSheet, ScrollView, FlatList} from 'react-native';
 
-import SwiperFood from './homescreen/SwiperFood';
+import SwiperFood from '../components/homescreen/SwiperFood';
 import datafood from '../asset/data/datafood';
 import dimension from '../asset/utils/dimension';
-import ProductImage from './homescreen/productImage';
+import ProductImage from '../components/homescreen/productImage';
 
 
 const comboFood = ['COMBO 1 NGƯỜI', 'COMBO NHÓM', 'MENU ƯU DÃI', 'MÓN LẺ'];
 
 
 export default class HomeScreen extends Component {
+
+    onPressPayment=()=>{
+        this.props.navigation.navigate('Payment')
+    };
 
     renderListFood() {
         return (
@@ -26,9 +30,9 @@ export default class HomeScreen extends Component {
                                     image={{uri: item.imageFood}}
                                     name={item.title}
                                     title={item.content}/>
-                                {console.log(item.imageFood)}
                                 <View style={{flexDirection: 'column-reverse', flex: 1, alignItems: 'center'}}>
-                                    <TouchableOpacity style={styles.btnOrder}>
+                                    <TouchableOpacity style={styles.btnOrder}
+                                    onPress={this.onPressPayment}>
                                         <Text>Đặt hàng</Text>
                                     </TouchableOpacity>
                                 </View>
