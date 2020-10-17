@@ -50,13 +50,25 @@ const dataFoodDetail = [
         id: 3,
         title: 'Gà xào',
         content: 'nó dài thật sự và dài voãi cải nồi, dài vô tận và dài vô hạn',
-        imageFood: 'https://i.pinimg.com/originals/47/6c/ad/476cad7e694f8772b2af6c851aa5c215.jpg',
+        imageFood: 'https://ichef.bbci.co.uk/news/1024/cpsprodpb/66A2/production/_107847262_gettyimages-1152276563-594x594.jpg',
     },
     {
         id: 4,
         title: 'Gà nướng',
         content: 'nó dài thật sự và dài voãi cải nồi, dài vô tận và dài vô hạn',
-        imageFood: 'https://www.joc.com/sites/default/files/field_feature_image/KFC_0.png',
+        imageFood: 'https://ichef.bbci.co.uk/news/1024/cpsprodpb/66A2/production/_107847262_gettyimages-1152276563-594x594.jpg',
+    },
+    {
+        id: 5,
+        title: 'Gà luộc',
+        content: 'nó dài thật sự và dài voãi cải nồi, dài vô tận và dài vô hạn',
+        imageFood: 'https://cdn.concreteplayground.com/content/uploads/2020/04/Family-Feast-KFC-supplied-1920x1440.jpg',
+    },
+    {
+        id: 6,
+        title: 'Gà luộc',
+        content: 'nó dài thật sự và dài voãi cải nồi, dài vô tận và dài vô hạn',
+        imageFood: 'https://cdn.concreteplayground.com/content/uploads/2020/04/Family-Feast-KFC-supplied-1920x1440.jpg',
     },
 ];
 export default {dataFood,dataFoodDetail};
