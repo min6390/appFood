@@ -14,22 +14,29 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {createStackNavigator} from '@react-navigation/stack';
+import SignInScreen from '../screens/LoginScreen/SignInScreen';
+import SignUpScreen from '../screens/LoginScreen/SignUpScreen';
+import Loading from './loading';
 
 
 const AccountStack = createStackNavigator();
+
 function AccountStackScreen() {
     return (
         <AccountStack.Navigator
-            screenOptions={({ headerStyle: { backgroundColor: colors.tabBarColor, } })}>
+            screenOptions={({headerStyle: {backgroundColor: colors.tabBarColor}})}>
             <AccountStack.Screen name="Tài khoản" component={AccountScreen}/>
         </AccountStack.Navigator>
     );
 }
+
 const HomeStack = createStackNavigator();
+
 function HomeStackScreen() {
     return (
         <HomeStack.Navigator
-            screenOptions={({ headerStyle: { backgroundColor: colors.tabBarColor, } })}>
+            initialRouteName="Home"
+            screenOptions={({headerStyle: {backgroundColor: colors.tabBarColor}})}>
             <HomeStack.Screen name="Home" component={HomeScreen}
                               options={{
                                   title: 'Thực đơn',
@@ -51,42 +58,80 @@ function HomeStackScreen() {
 }
 
 const Tab = createBottomTabNavigator();
+
+function TabNavigator() {
+    return (
+        <Tab.Navigator
+            tabBarOptions={{
+                activeTintColor: 'white',
+                inactiveTintColor: '#fa8072',
+                style: {
+                    backgroundColor: colors.tabBarColor,
+                },
+            }}
+        >
+            <Tab.Screen name="Menu" component={HomeStackScreen}
+                        options={{
+                            title: 'Thực đơn',
+                            tabBarIcon: ({color}) => <FontAwesome name='home' color={color} size={30}/>,
+                            tabBarBadge: 3,
+
+
+                        }}/>
+            <Tab.Screen name="Restaurant" component={OtherScreen}
+                        options={{
+                            tabBarIcon: ({color}) => <MaterialCommunityIcons name='silverware-fork-knife'
+                                                                             color={color} size={30}/>,
+                        }}/>
+            <Tab.Screen name="Notification" component={NotificationScreen}
+                        options={{
+                            tabBarIcon: ({color}) => <Ionicons name='notifications' color={color} size={30}/>,
+                        }}/>
+            <Tab.Screen name="Account" component={AccountStackScreen}
+                        options={{
+                            title: 'Tài khoản',
+                            tabBarIcon: ({color}) => <MaterialCommunityIcons name='account' color={color}
+                                                                             size={30}/>,
+                        }}/>
+        </Tab.Navigator>
+    );
+}
+
+const LoginNavigator = createStackNavigator();
+
+function LoginNavigatorStack() {
+    return (
+        <LoginNavigator.Navigator
+             headerMode={false}>
+            <LoginNavigator.Screen name={'SignIn'} component={SignInScreen}/>
+            <LoginNavigator.Screen name={'SignUp'} component={SignUpScreen}/>
+        </LoginNavigator.Navigator>
+    );
+}
+
+const LoadingNavigator = createStackNavigator();
+
+function LoadingStack() {
+    return (
+        <LoadingNavigator.Navigator>
+            <LoadingNavigator.Screen name={'Loading'} component={Loading}/>
+        </LoadingNavigator.Navigator>
+    );
+}
+
+
+const RouteNavigator = createStackNavigator();
 export default function Route() {
     return (
         <NavigationContainer>
-            <Tab.Navigator
-                tabBarOptions={{
-                    activeTintColor: 'white',
-                    inactiveTintColor: '#fa8072',
-                    style:{
-                        backgroundColor:colors.tabBarColor
-                    }
-                }}
-           >
-                <Tab.Screen name="Menu" component={HomeStackScreen}
-                            options={{
-                                title: 'Thực đơn',
-                                tabBarIcon: ({color}) => <FontAwesome name='home' color={color} size={30}/>,
-                                tabBarBadge: 3,
-
-
-                            }}/>
-                <Tab.Screen name="Restaurant" component={OtherScreen}
-                            options={{
-                                tabBarIcon: ({color}) => <MaterialCommunityIcons name='silverware-fork-knife'
-                                                                                 color={color} size={30}/>,
-                            }}/>
-                <Tab.Screen name="Notification" component={NotificationScreen}
-                            options={{
-                                tabBarIcon: ({color}) => <Ionicons name='notifications' color={color} size={30}/>,
-                            }}/>
-                <Tab.Screen name="Account" component={AccountStackScreen}
-                            options={{
-                                title:'Tài khoản',
-                                tabBarIcon: ({color}) => <MaterialCommunityIcons name='account' color={color}
-                                                                                 size={30}/>,
-                            }}/>
-            </Tab.Navigator>
+            <RouteNavigator.Navigator
+                initialRouteName="loading">
+                <RouteNavigator.Screen name={'loading'} component={LoadingStack}/>
+                <RouteNavigator.Screen name={'Login'} component={LoginNavigatorStack}
+                                       options={{headerShown: false}}/>
+                <RouteNavigator.Screen name={'Tab'} component={TabNavigator}
+                                       options={{headerShown: false}}/>
+            </RouteNavigator.Navigator>
         </NavigationContainer>
     );
 }
