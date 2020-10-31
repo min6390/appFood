@@ -1,14 +1,14 @@
 import {Image, Text, View, StyleSheet, TextInput, ScrollView, } from 'react-native';
 import React from 'react';
 
-const inputLogin = ({ txtPlaceholder}) => (
-    <View>
+const inputLogin = ({ txtPlaceholder, keyboardType,onValue}) => (
     <TextInput
         style={styles.textInput}
         placeholder={txtPlaceholder}
-        keyboardType={'email-address'}
-        returnKeyType={'next'}/>
-    </View>
+        keyboardType={keyboardType}
+        returnKeyType={'next'}
+        onChangeText={onValue&&onValue()}
+        value={value}/>
 );
 const styles = StyleSheet.create({
     textInput: {

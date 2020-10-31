@@ -14,8 +14,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {createStackNavigator} from '@react-navigation/stack';
-import SignInScreen from '../screens/LoginScreen/SignInScreen';
-import SignUpScreen from '../screens/LoginScreen/SignUpScreen';
+import SignInScreen from '../screens/LoginScreen/signin/SignInScreen';
+import SignUpScreen from '../screens/LoginScreen/signup/SignUpScreen';
 import Loading from './loading';
 
 
@@ -103,7 +103,7 @@ function LoginNavigatorStack() {
     return (
         <LoginNavigator.Navigator
              headerMode={false}>
-            <LoginNavigator.Screen name={'SignIn'} component={SignInScreen}/>
+            <LoginNavigator.Screen name={'signIn'} component={SignInScreen}/>
             <LoginNavigator.Screen name={'SignUp'} component={SignUpScreen}/>
         </LoginNavigator.Navigator>
     );

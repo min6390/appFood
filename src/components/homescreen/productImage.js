@@ -1,36 +1,49 @@
-import {Image, Text, View, StyleSheet} from 'react-native';
+import {Image, Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import dimension from '../../asset/utils/dimension';
 
-const ProductImage = ({image, name, title}) => (
-    <View style={{alignItems: 'center'}}>
-        <Image
-            resizeMode={'cover'}
-            style={styles.imageFood}
-            source={image}/>
-        <View style={{height: (dimension.getWidth() / 6)}}/>
-        <Text style={styles.textFood}>{name}</Text>
-        <Text style={styles.content}
-              numberOfLines={4}>
-            {title}
-        </Text>
+const ProductImage = ({image, name, title, price}) => (
+
+
+    <View style={{flexDirection: 'row', flex: 1}}>
+        <View style={{height: '100%'}}>
+            <Image
+                style={styles.imageFood}
+                source={image}
+                resizeMode={'contain'}/>
+        </View>
+        <View style={{marginHorizontal: 5, flex: 1}}>
+            <View style={{alignItems: 'center'}}>
+                <Text style={{fontSize: 16, fontWeight: 'bold'}}>{name}</Text>
+            </View>
+            <View>
+                <Text >{title}</Text>
+
+            </View>
+            <View style={{alignItems: 'flex-end',flexDirection:'row',justifyContent:'center'}}>
+                <View style={{alignSelf:'center',marginHorizontal:10}}>
+                    <Text style={{fontWeight: 'bold',color:'blue'}}>{price} VND</Text>
+                </View>
+                <TouchableOpacity style={{borderRadius: 5, borderWidth: 1, padding: 5, margin: 5}}>
+                    <Text>Đặt hàng</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
     </View>
 );
 const styles = StyleSheet.create({
     imageFood: {
-        height: dimension.getWidth() / 4,
-        width: dimension.getWidth() / 3,
-        position: 'absolute',
-        top: -40,
-        borderRadius: 10,
-
+        height: '100%',
+        width: dimension.getWidth() / 2.5,
+        borderRadius: 5,
+        flex: 1,
     },
     textFood: {
         fontSize: 18,
         fontWeight: 'bold',
     },
     content: {
-        margin:5
+        width: '100%',
     },
 });
 export default ProductImage;

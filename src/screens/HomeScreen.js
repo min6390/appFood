@@ -7,38 +7,46 @@ import dimension from '../asset/utils/dimension';
 import ProductImage from '../components/homescreen/productImage';
 
 
-const comboFood = ['COMBO 1 NGƯỜI', 'COMBO NHÓM', 'MENU ƯU DÃI', 'MÓN LẺ'];
-
-
 export default class HomeScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
             data: [],
-            species: 1,
+            idSelectSpecie: 1,
+            newData: [],
+            arrSpeices: [],
         };
     }
 
+
     componentDidMount() {
-        axios.get('http://192.168.1.21/webservice/foodapp.php')
+        axios.get('http://192.168.1.2/webservice/foodapp.php')
             .then(res => {
                 const data = res.data.map(food => {
-                    return {...food , fullSize : false}
-                })
+                    return {...food, fullSize: false};
+                });
                 this.setState({data});
+            })
+            .catch(e => console.log(e));
+        axios.get('http://192.168.1.2/webservice/species.php')
+            .then(res => {
+                this.setState({arrSpeices: res.data});
             })
             .catch(e => console.log(e));
     }
 
-    onPressFullSize = (id) => {
-        const updateData = this.state.data.map(food => {
-            if (food.ID === id){
-                return {...food , fullSize : !food.fullSize}
-            }
-            return food
-        })
-        this.setState({data : updateData});
-    };
+    // onPressChangeData = () => {
+    //     const {species, data} = this.state;
+    //     data.filter(word => {
+    //             if (word.species == species) {
+    //                 return {...data};
+    //                 console.log(data);
+    //             }
+    //         },
+    //     );
+    //
+    // };
+
     onPressPayment = () => {
         this.props.navigation.navigate('Payment');
     };
@@ -48,36 +56,32 @@ export default class HomeScreen extends Component {
             .then(() => console.log('User signed out!'));
     };
     renderItemFood = (item) => {
+        const {idSelectSpecie} = this.state;
+        if (item.species != idSelectSpecie){
+            return null
+        }
         return (
-            <View style={item.fullSize ? styles.listFoodFull : styles.listFood} key={item.ID.toString()}>
-                <ProductImage
-                    image={{uri: item.imageFood}}
-                    name={item.nameFood}
-                    title={item.contentFood}/>
-                <View style={{flexDirection: 'column-reverse', flex: 1, alignItems: 'center'}}>
-                    <TouchableOpacity
-                        key={item}
-                        style={styles.btnOrder}
-                        onPress={() => this.onPressFullSize(item.ID)}>
-
-                        <Text>Show</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.btnOrder}
-                                      onPress={_ => _}>
-                        <Text>Đặt hàng</Text>
-                    </TouchableOpacity>
+            <View key={item.ID.toString()} style={{alignItems: 'center'}}>
+                <View style={styles.listFood}>
+                    <ProductImage
+                        image={{uri: item.imageFood}}
+                        name={item.nameFood}
+                        title={item.contentFood}
+                        price={item.price}>
+                    </ProductImage>
                 </View>
             </View>
         );
     };
 
+
     renderListFood() {
-        const {data, fullSizeList} = this.state;
+        const {data, } = this.state;
+
         return (
             <View style={{backgroundColor: 'whitesmoke'}}>
                 <FlatList
                     keyExtractor={item => item.ID}
-                    numColumns={2}
                     data={data}
                     renderItem={({item}) => this.renderItemFood(item)}/>
             </View>
@@ -89,15 +93,30 @@ export default class HomeScreen extends Component {
             <View style={{flex: 1, backgroundColor: 'whitesmoke'}}>
                 <SwiperFood/>
                 <View style={{borderWidth: 1, borderColor: 'red'}}/>
-                <View>
-                    <ScrollView horizontal={true}>
-                        {comboFood.map((food, index) =>
-                            <TouchableOpacity key={index}
-                                              style={styles.btnFood}>
-                                <Text style={{fontSize: 20}}>{food}</Text>
-                            </TouchableOpacity>)}
-                    </ScrollView>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 30}}>
+                    {
+                        this.state.arrSpeices.length <= 0
+                            ? null
+                            :
+                            this.state.arrSpeices.map((specie, index) => {
+                                return (
+                                    <View key={index}>
+                                        <TouchableOpacity style={styles.btnFood}
+                                                          onPress={() => this.setState({idSelectSpecie: specie.id})}/>
+                                    </View>
+                                );
+                            })
+                    }
                 </View>
+                {/*{comboFood.map((food, index) =>*/}
+                {/*    <View style={{alignItems: 'center'}}>*/}
+                {/*        <TouchableOpacity key={index}*/}
+                {/*                          style={styles.btnFood} >*/}
+                {/*        </TouchableOpacity>*/}
+                {/*        <Text >{food}</Text>*/}
+                {/*    </View>*/}
+                {/*)}*/}
+
                 <View style={{alignItems: 'center', flex: 1}}>
                     <Text style={{fontSize: 18, fontWeight: 'bold', margin: 10}}
                           onPress={this.onPressSignOut}> MENU </Text>
@@ -109,53 +128,49 @@ export default class HomeScreen extends Component {
 }
 const styles = StyleSheet.create({
     btnFood: {
-        margin: 10,
-        borderBottomWidth: 1,
+        margin: 5,
+        width: dimension.getWidth() / 7,
+        height: dimension.getWidth() / 7,
+        borderRadius: 50,
+        backgroundColor: 'pink',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,
     },
     listFood: {
-        borderWidth: 1.2,
-        borderColor: 'red',
-        height: dimension.getWidth() / 2,
-        borderRadius: 10,
-        width: dimension.getWidth() / 2.3,
-        margin: 10,
-        backgroundColor: 'white',
-        marginTop: 40,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-
-        elevation: 5,
+        //     flex: 1,
+        //     margin: 10,
+        //     borderWidth: 1.2,
+        //     borderColor: 'red',
+        //     borderRadius: 10,
+        //     backgroundColor: 'white',
+        //     shadowColor: '#000',
+        //     shadowOffset: {
+        //         width: 0,
+        //         height: 2,
+        //     },
+        //     shadowOpacity: 0.25,
+        //     shadowRadius: 3.84,
+        //
+        //     elevation: 5,
+        width: dimension.getWidth() - 30,
+        borderRadius: 5,
+        borderWidth: 1,
+        margin: 5,
     },
-    listFoodFull: {
-        borderWidth: 1.2,
-        borderColor: 'red',
-        height: dimension.getWidth(),
-        borderRadius: 10,
-        width: dimension.getWidth() / 2.3,
-        margin: 10,
-        backgroundColor: 'white',
-        marginTop: 40,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
+    // },
 
-        elevation: 5,
-    },
     btnOrder: {
         borderRadius: 5,
         borderWidth: 1,
         alignItems: 'center',
-        width: '80%',
-        marginBottom: 10,
+        width: '30%',
         backgroundColor: 'red',
     },
 });

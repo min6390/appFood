@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 
 import {View, Image, TextInput, Text, TouchableOpacity, StyleSheet, ScrollView, Alert} from 'react-native';
 import auth from '@react-native-firebase/auth';
-import inputLogin from '../../components/inputLogin';
+import inputLogin from '../../../components/inputLogin';
+import {emailSignUp} from './signup';
 
 export default class SignUpScreen extends Component {
     constructor(props) {
@@ -13,41 +14,13 @@ export default class SignUpScreen extends Component {
         };
     }
 
-    emailSignUp = () => {
-        const {email, password} = this.state;
-        if (email && password) {
-            if (password.length > 5) {
-                auth()
-                    .createUserWithEmailAndPassword(email, password)
-                    .then(() => Alert.alert(
-                        'Alert Title',
-                        'Create Account Success',
-                        [
-                            {text: 'OK', onPress: () => this.props.navigation.navigate('SignIn')},
-                        ],
-                        {cancelable: false},
-                    ))
-                    .catch(error =>
-                        this.setState(
-                            {errorMessage: error.message},
-                            this.setState({spinner: false}),
-                        ));
-            } else {
-                Alert.alert(
-                    'Error',
-                    'Password hơn 6 kí tự ',
-                    [{text: 'OK'}]);
-            }
-        }
-    };
-
-
     render() {
+        const {email, password} = this.state;
         return (
             <ScrollView style={styles.container}>
                 <View style={styles.imageView}>
                     <Image
-                        source={require('../../asset/image/fooding.jpg')}/>
+                        source={require('../../../asset/image/fooding.jpg')}/>
                 </View>
                 <Text
                     style={{
@@ -60,16 +33,32 @@ export default class SignUpScreen extends Component {
                     style={styles.textInput}
                     placeholder={'Enter your Email'}
                     keyboardType={'email-address'}
-                    returnKeyType={'next'}/>
+                    returnKeyType={'next'}
+                    onChangeText={email => {
+                        this.setState({email});
+                    }}
+                    value={email}/>
                 <TextInput
                     maxLength={15}
                     style={styles.textInput}
                     placeholder={'Enter your Password'}
                     secureTextEntry
-                    ref={'txtPassword'}/>
+                    onChangeText={password => {
+                        this.setState({password});
+                    }}
+                    value={password}/>
                 <View style={{marginTop: 10}}>
                     <TouchableOpacity style={styles.buttonView}
-                                      onPress={this.emailSignUp}>
+                                      onPress={()=>emailSignUp(email, password, () => {
+                                              Alert.alert(
+                                                  'Alert Title',
+                                                  'Create Account Success',
+                                                  [
+                                                      {text: 'OK', onPress: () => this.props.navigation.goBack},
+                                                  ],
+                                              )
+                                          },
+                                      )}>
                         <Text style={{fontSize: 18, textAlign: 'center'}}>Create to Account</Text>
                     </TouchableOpacity>
                 </View>
