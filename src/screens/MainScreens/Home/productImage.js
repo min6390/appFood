@@ -1,6 +1,6 @@
 import {Image, Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
-import dimension from '../../asset/utils/dimension';
+import dimension from '../../../asset/utils/dimension';
 
 const ProductImage = ({image, name, content, price}) => (
 

@@ -1,14 +1,12 @@
 import React from 'react';
-import {View, Image, TouchableOpacity, Text, StyleSheet} from 'react-native';
-import abc from '../../asset/utils/abc';
-// import styles from './styles';
+import {View, Image, StyleSheet} from 'react-native';
 import Swiper from 'react-native-swiper';
-import dimension from '../../asset/utils/dimension';
+import dimension from '../../../asset/utils/dimension';
 
-const firstImage = require('../../asset/image/QC/QC1.png');
-const secondImage = require('../../asset/image/QC/QC2.png');
-const thirdImage = require('../../asset/image/QC/QC3.png');
-const fourthImage = require('../../asset/image/QC/QC4.png');
+const firstImage = require('../../../asset/image/QC/QC1.png');
+const secondImage = require('../../../asset/image/QC/QC2.png');
+const thirdImage = require('../../../asset/image/QC/QC3.png');
+const fourthImage = require('../../../asset/image/QC/QC4.png');
 const imageFood = [firstImage, secondImage, thirdImage, fourthImage];
 
 

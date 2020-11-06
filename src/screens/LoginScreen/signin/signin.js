@@ -1,5 +1,4 @@
 import auth from '@react-native-firebase/auth';
-import {Alert} from 'react-native';
 
 const emailSignIn = (email, password, onSuccess, onError) => {
 

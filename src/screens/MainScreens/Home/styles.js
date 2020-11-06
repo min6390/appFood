@@ -22,23 +22,21 @@ export const styles = StyleSheet.create({
     listFood: {
         //     flex: 1,
         //     margin: 10,
-        //     borderWidth: 1.2,
-        //     borderColor: 'red',
-        //     borderRadius: 10,
-        //     backgroundColor: 'white',
-        //     shadowColor: '#000',
-        //     shadowOffset: {
-        //         width: 0,
-        //         height: 2,
-        //     },
-        //     shadowOpacity: 0.25,
-        //     shadowRadius: 3.84,
-        //
-        //     elevation: 5,
+            shadowColor: '#000',
+            shadowOffset: {
+                width: 0,
+                height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+
+            elevation: 5,
         width: dimension.getWidth() - 30,
         borderRadius: 5,
+        borderColor:'#dcdcdc',
         borderWidth: 1,
         margin: 5,
+        backgroundColor:'whitesmoke'
     },
     // },
 

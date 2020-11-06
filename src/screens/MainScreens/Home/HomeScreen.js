@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import auth from '@react-native-firebase/auth';
 import {View, Image, TouchableOpacity, Text, StyleSheet, ScrollView, FlatList} from 'react-native';
 import axios from 'axios';
-import SwiperFood from '../../../components/homescreen/SwiperFood';
-import dimension from '../../../asset/utils/dimension';
-import ProductImage from '../../../components/homescreen/productImage';
+import SwiperFood from './SwiperFood';
+import ProductImage from './productImage';
 import {styles} from './styles';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+import {ItemType} from './ItemType';
 
 
 export default class HomeScreen extends Component {
@@ -49,7 +50,7 @@ export default class HomeScreen extends Component {
             return null;
         }
         return (
-            <View key={item.id.toString()} style={{alignItems: 'center',}}>
+            <View key={item.id.toString()} style={{alignItems: 'center'}}>
                 <View style={styles.listFood}>
                     <ProductImage
                         image={{uri: item.foodImage}}
@@ -77,7 +78,6 @@ export default class HomeScreen extends Component {
 
     render() {
         const {arrSpecies} = this.state;
-        console.log(arrSpecies);
         return (
             <View style={{flex: 1, backgroundColor: 'whitesmoke'}}>
                 <SwiperFood/>
@@ -89,16 +89,20 @@ export default class HomeScreen extends Component {
                             :
                             arrSpecies.map((species, index) => {
                                 return (
-                                    <View key={index}>
-                                        <TouchableOpacity style={styles.btnFood}
-                                                          onPress={() => this.setState({idSelectSpecies: species.id})}>
-                                            <Image
-                                                style={{height: 32, width: 32}}
-                                                resizeMode={'cover'}
-                                                source={{uri: species.image}}/>
-                                        </TouchableOpacity>
-
-                                    </View>
+                                    // <View key={index}>
+                                    //     <TouchableOpacity style={styles.btnFood}
+                                    //                       onPress={() => this.setState({idSelectSpecies: species.id})}>
+                                    //         <Image
+                                    //             style={{height: 32, width: 32}}
+                                    //             resizeMode={'cover'}
+                                    //             source={{uri: species.image}}/>
+                                    //     </TouchableOpacity>
+                                    // </View>
+                                    <ItemType key={index} selected={species.id == this.state.idSelectSpecies}
+                                              image={{uri: species.image}}
+                                              onSelected={() => {
+                                                  this.setState({idSelectSpecies: species.id});
+                                              }}/>
                                 );
                             })
                     }
