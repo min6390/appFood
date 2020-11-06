@@ -2,22 +2,21 @@ import {Image, Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import dimension from '../../asset/utils/dimension';
 
-const ProductImage = ({image, name, title, price}) => (
+const ProductImage = ({image, name, content, price}) => (
 
-
-    <View style={{flexDirection: 'row', flex: 1}}>
+    <View style={{flexDirection: 'row', flex: 1,}}>
         <View style={{height: '100%'}}>
             <Image
                 style={styles.imageFood}
                 source={image}
-                resizeMode={'contain'}/>
+                resizeMode={'cover'}/>
         </View>
         <View style={{marginHorizontal: 5, flex: 1}}>
             <View style={{alignItems: 'center'}}>
                 <Text style={{fontSize: 16, fontWeight: 'bold'}}>{name}</Text>
             </View>
             <View>
-                <Text >{title}</Text>
+                <Text >{content}</Text>
 
             </View>
             <View style={{alignItems: 'flex-end',flexDirection:'row',justifyContent:'center'}}>

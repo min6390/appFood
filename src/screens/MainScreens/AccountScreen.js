@@ -5,7 +5,7 @@ import {View, Image, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {colors} from '../asset/colors/colors';
+import {colors} from '../../asset/colors/colors';
 // import styles from './styles';
 
 export default class AccountScreen extends Component {

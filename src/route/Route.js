@@ -3,10 +3,10 @@ import {Text, View, Image, TouchableOpacity} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import HomeScreen from '../screens/HomeScreen';
-import OtherScreen from '../screens/OtherScreen';
-import NotificationScreen from '../screens/NotificationScreen';
-import AccountScreen from '../screens/AccountScreen';
+import HomeScreen from '../screens/MainScreens/Home/HomeScreen';
+import OtherScreen from '../screens/MainScreens/OtherScreen';
+import NotificationScreen from '../screens/MainScreens/NotificationScreen';
+import AccountScreen from '../screens/MainScreens/AccountScreen';
 import PaymentScreen from '../components/PaymentScreen';
 import {colors} from '../asset/colors/colors';
 
